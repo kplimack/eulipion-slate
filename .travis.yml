@@ -3,6 +3,7 @@ cache: bundler
 bundler_args: --without integration development
 before_script: bundle exec berks
 script:
-  - bundle exec foodcritic -f any . --tags ~FC007 --tags ~FC023
+  - bundle exec foodcritic -f any -t ~FC001 -t ~FC007 -t ~FC023 .
   - bundle exec rubocop
   - bundle exec rspec test/integration/default/serverspec/
+  
