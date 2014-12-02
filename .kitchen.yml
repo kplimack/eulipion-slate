@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: debian-7.4
+    run_list:
+      - recipe[apt]
+      - recipe[nscd]
+    network:
+      - ["forwarded_port", {guest: 80, host: 4567, auto_correct: true}]
+    attributes:
+      nscd:
+        databases: ['passwd', 'group', 'hosts', 'services' ]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[eulipion-slate]
+    attributes:
+      nscd:
+        databases: ['passwd', 'group', 'hosts', 'services' ]
+        

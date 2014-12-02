@@ -1,0 +1,17 @@
+name             'eulipion-slate'
+maintainer       'ShowMobile, LLC'
+maintainer_email 'jake.plimack@gmail.com'
+license          'All rights reserved'
+description      'Installs/Configures eulipion-slate'
+long_description 'Installs/Configures eulipion-slate'
+version          '0.1.0'
+
+
+depends 'apache2'
+depends 'nginx'
+depends 'passenger_apache2'
+depends 'application_ruby'
+depends 'apt'
+depends 'git'
+depends 'passenger_apache2'
+depends 'nscd'

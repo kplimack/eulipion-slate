@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -x
+
+export PATH=<%= @ruby_bin_dir %>:$PATH
+
+cd <%= @app_path %>
+bundle exec middleman server &
