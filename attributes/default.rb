@@ -11,12 +11,12 @@ default[:slate][:deploy_path] = '/data/www/slate'
 # Server Values: 'middleman'
 
 default[:slate][:server] = {
-  :server => 'apache', # Server Values: nil, 'middleman', 'apache', 'nginx'
-  :name => "slate.#{chef_environment.gsub('_','')}.#{domain}",
-  :aliases => %w{ }
+  server: 'apache', # Server Values: nil, 'middleman', 'apache', 'nginx'
+  name: "slate.#{chef_environment.gsub('_', '')}.#{domain}",
+  aliases: %w( )
 }
 
 default[:slate][:deps] = {
-  :cookbooks => %w{ git build-essential },
-  :packages => %w{ }
+  cookbooks: %w( git build-essential ),
+  packages: %w( )
 }
