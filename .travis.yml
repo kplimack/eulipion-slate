@@ -1,0 +1,8 @@
+language: ruby
+cache: bundler
+bundler_args: --without integration development
+before_script: bundle exec berks
+script:
+  - bundle exec foodcritic -f any . --tags ~FC007 --tags ~FC023
+  - bundle exec rubocop
+  - bundle exec rspec test/integration/default/serverspec/

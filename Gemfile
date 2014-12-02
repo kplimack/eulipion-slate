@@ -2,6 +2,17 @@ source 'https://rubygems.org'
 
 gem 'berkshelf'
 
+group :unit do
+  gem 'foodcritic'
+  gem 'rubocop'
+  gem 'chefspec'
+end
+group :integration do
+  gem 'test-kitchen'
+  gem 'kitchen-vagrant'
+  gem 'kitchen-digitalocean'
+  gem 'kitchen-ec2'
+end
 # Uncomment these lines if you want to live on the Edge:
 #
 # group :development do
@@ -16,3 +27,4 @@ gem 'berkshelf'
 
 gem 'test-kitchen'
 gem 'kitchen-vagrant'
+gem 'rake'
