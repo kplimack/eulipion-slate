@@ -9,7 +9,7 @@
 
 node[:slate][:deps][:cookbooks].each { |cb| include_recipe cb }
 
-case node[:slate][:server]
+case node[:slate][:server][:server]
 when 'apache'
   user = node[:apache][:user]
   group = node[:apache][:group]
