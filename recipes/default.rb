@@ -24,6 +24,8 @@ directory node[:slate][:deploy_path] do
   recursive true
 end
 
+%w(bundler execjs).each { |g| gem_package g }
+
 application "slate-#{node.chef_environment.gsub('_', '')}" do
   repository node[:slate][:repo]
   revision node[:slate][:revision]
@@ -34,9 +36,12 @@ application "slate-#{node.chef_environment.gsub('_', '')}" do
   action :force_deploy
   keep_releases 2
   migrate false
-  create_dirs_before_symlink ['config']
+  create_dirs_before_symlink ['config', 'tmp', 'public']
   rollback_on_error false if Chef::Config[:solo]
-
+  case node[:slate][:deploy_key_method]
+  when 'citadel'
+    deploy_key citadel[node[:slate][:deploy_key_path]]
+  end
   rails do
     bundler true
   end
@@ -55,13 +60,6 @@ application "slate-#{node.chef_environment.gsub('_', '')}" do
     end
   when 'apache'
     before_migrate do
-      web_app "slate-#{node.chef_environment.gsub('_', '')}" do
-        template 'apache.static.conf.erb'
-        server_name node[:slate][:server][:name]
-        server_aliases node[:slate][:server][:aliases]
-        docroot "#{node[:slate][:deploy_path]}/current/build"
-      end
-
       template "#{node[:slate][:deploy_path]}/build.sh" do
         source 'build.sh.erb'
         variables(
@@ -82,5 +80,15 @@ application "slate-#{node.chef_environment.gsub('_', '')}" do
     end
   when 'nginx'
 
+  end
+end
+
+case node[:slate][:server][:server]
+when 'apache'
+  web_app "slate-#{node.chef_environment.gsub('_', '')}" do
+    template 'apache.static.conf.erb'
+    server_name node[:slate][:server][:name]
+    server_aliases node[:slate][:server][:aliases]
+    docroot "#{node[:slate][:deploy_path]}/current/build"
   end
 end

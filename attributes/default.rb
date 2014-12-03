@@ -5,6 +5,8 @@ include_attribute 'passenger_apache2'
 # Fork the repo and set this to your fork.
 default[:slate][:repo] = 'https://github.com/kplimack/slate.git'
 default[:slate][:rev] = 'HEAD'
+default[:slate][:deploy_key_method] = nil
+default[:slate][:deploy_key_path] = 'keys/slate'
 
 default[:slate][:deploy_path] = '/data/www/slate'
 
