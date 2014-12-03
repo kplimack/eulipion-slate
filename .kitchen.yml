@@ -1,12 +1,32 @@
 ---
 driver:
-  name: vagrant
+  name: ec2
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  ssh_key: <%= ENV['SSH_KEY_PATH'] %>
+  region: us-east-1
+  availability_zone: us-east-1d
+  security_group_ids: ['sg-8e81feeb']
+  interface: public
+  iam_profile_name: base
+  subnet_id: subnet-61485827
+  ebs_delete_on_termination: true
+  ebs_volume_size: 8
+  require_chef_omnibus: true
+  associate_public_ip: true
 
 provisioner:
   name: chef_zero
 
 platforms:
   - name: debian-7.4
+    driver:
+      username: admin
+      image_id: ami-f264e99a
+      tags:
+        Name: travis-ci-default-debian-7.4
+        Env: public
     run_list:
       - recipe[apt]
       - recipe[nscd]
@@ -21,6 +41,3 @@ suites:
     run_list:
       - recipe[eulipion-slate]
     attributes:
-      nscd:
-        databases: ['passwd', 'group', 'hosts', 'services' ]
-        

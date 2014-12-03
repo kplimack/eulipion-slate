@@ -33,7 +33,7 @@ application "slate-#{node.chef_environment.gsub('_', '')}" do
   path node[:slate][:deploy_path]
   owner user
   group group
-  action :force_deploy
+  action :deploy
   keep_releases 2
   migrate false
   create_dirs_before_symlink ['config', 'tmp', 'public']
