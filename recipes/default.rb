@@ -31,7 +31,7 @@ application "slate-#{node.chef_environment.gsub('_', '')}" do
   revision node[:slate][:revision]
   packages node[:slate][:deps][:packages]
   path node[:slate][:deploy_path]
-  owner user
+  owner 'root'
   group group
   action :deploy
   keep_releases 2
